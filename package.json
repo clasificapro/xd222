@@ -1,0 +1,10 @@
+{
+  "name": "troller-cloud",
+  "version": "1.0.0",
+  "description": "Servidor de comandos para Roblox",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {}
+}
