@@ -124,7 +124,7 @@ const server = http.createServer((req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 26237;
+const PORT = process.env.PORT || 25880;
 server.listen(PORT, () => {
     console.log(`Servidor activo en el puerto ${PORT}`);
 });
