@@ -1,10 +1,12 @@
 {
-  "name": "troller-cloud",
+  "name": "troller-cloud-server",
   "version": "1.0.0",
-  "description": "Servidor de comandos para Roblox",
+  "description": "Servidor de comandos para Troller",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
