@@ -10,6 +10,7 @@ let currentCommand = {
     timestamp: 0
 };
 
+// Almacena los clientes activos globalmente por nombre de usuario
 let activeClients = {};
 
 // Endpoint para enviar comandos desde el Panel
@@ -40,7 +41,7 @@ app.post('/api/clear-command', (req, res) => {
     res.json({ success: true });
 });
 
-// Endpoint para registrar presencia del cliente en tiempo real (Heartbeat)
+// Endpoint para registrar el latido (Heartbeat) desde cualquier servidor
 app.post('/api/heartbeat', (req, res) => {
     const { player, jobId } = req.body;
     if (player) {
@@ -52,11 +53,11 @@ app.post('/api/heartbeat', (req, res) => {
     res.json({ success: true });
 });
 
-// Endpoint para que el Panel consulte qué clientes están activos automáticamente
+// Endpoint para que el Panel consulte los clientes activos con sus respectivos JobIds
 app.get('/api/active-clients', (req, res) => {
     const now = Date.now();
+    // Limpiar clientes que no hayan mandado señal en los últimos 10 segundos (inactivos)
     for (let p in activeClients) {
-        // Si un cliente deja de enviar señal por más de 10 segundos, se elimina automáticamente
         if (now - activeClients[p].lastSeen > 10000) {
             delete activeClients[p];
         }
