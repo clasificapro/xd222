@@ -33,14 +33,14 @@ app.get('/api/get-command', (req, res) => {
     res.json(currentCommand);
 });
 
-// Endpoint para limpiar comandos
+// Endpoint para limpiar
 app.post('/api/clear-command', (req, res) => {
     currentCommand = { command: "", sender: "", role: "", jobId: "", timestamp: Date.now() };
     console.log("[COMANDO] Limpiado de la nube.");
     res.json({ success: true });
 });
 
-// Endpoint para registrar presencia del cliente (Heartbeat)
+// Endpoint para registrar presencia del cliente en tiempo real (Heartbeat)
 app.post('/api/heartbeat', (req, res) => {
     const { player, jobId } = req.body;
     if (player) {
@@ -52,12 +52,13 @@ app.post('/api/heartbeat', (req, res) => {
     res.json({ success: true });
 });
 
-// Endpoint para que el Panel consulte qué clientes están activos
+// Endpoint para que el Panel consulte qué clientes están activos automáticamente
 app.get('/api/active-clients', (req, res) => {
     const now = Date.now();
     for (let p in activeClients) {
+        // Si un cliente deja de enviar señal por más de 10 segundos, se elimina automáticamente
         if (now - activeClients[p].lastSeen > 10000) {
-            delete activeClients[p]; // Limpia inactivos de más de 10 segundos
+            delete activeClients[p];
         }
     }
     res.json(activeClients);
